@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: payment_gateway_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: payment_gateway
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - payment_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: payment_gateway_api
+    ports:
+      - '8080:8080'
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: payment_gateway
+    depends_on:
+      - postgres
+    networks:
+      - payment_network
+
+volumes:
+  postgres_data:
+
+networks:
+  payment_network:
