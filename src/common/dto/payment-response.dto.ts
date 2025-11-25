@@ -1,161 +1,180 @@
-import type { PaymentStatus, PaymentProvider } from "../enums/payment-provider.enum"
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger"
+import type {
+  PaymentStatus,
+  PaymentProvider,
+} from '../enums/payment-provider.enum';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class PaymentResponseDto {
   @ApiProperty({
-    description: "Unique payment identifier",
-    example: "123e4567-e89b-12d3-a456-426614174000",
+    description: 'Unique payment identifier',
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  id: string
+  id: string;
 
   @ApiProperty({
-    description: "Payment provider",
-    enum: ["transbank", "mercado_pago"],
-    example: "transbank",
+    description: 'Payment provider',
+    enum: ['transbank', 'mercado_pago'],
+    example: 'transbank',
   })
-  provider: PaymentProvider
+  provider: PaymentProvider;
 
   @ApiProperty({
-    description: "Payment amount",
+    description: 'Payment amount',
     example: 100.5,
   })
-  amount: number
+  amount: number;
 
   @ApiProperty({
-    description: "Currency code",
-    example: "CLP",
+    description: 'Currency code',
+    example: 'CLP',
   })
-  currency: string
+  currency: string;
 
   @ApiProperty({
-    description: "Current payment status",
-    enum: ["pending", "authorized", "captured", "declined", "cancelled", "refunded", "error"],
-    example: "captured",
+    description: 'Current payment status',
+    enum: [
+      'pending',
+      'authorized',
+      'captured',
+      'declined',
+      'cancelled',
+      'refunded',
+      'error',
+    ],
+    example: 'captured',
   })
-  status: PaymentStatus
+  status: PaymentStatus;
 
   @ApiProperty({
-    description: "Provider transaction ID",
-    example: "TXN_1234567890_abc",
+    description: 'Provider transaction ID',
+    example: 'TXN_1234567890_abc',
   })
-  transactionId: string
+  transactionId: string;
 
   @ApiPropertyOptional({
-    description: "Authorization code from provider",
-    example: "AUTH123",
+    description: 'Authorization code from provider',
+    example: 'AUTH123',
   })
-  authCode?: string
+  authCode?: string;
 
   @ApiPropertyOptional({
-    description: "Response message",
-    example: "Payment captured successfully",
+    description: 'Response message',
+    example: 'Payment captured successfully',
   })
-  message?: string
+  message?: string;
 
   @ApiProperty({
-    description: "Last update timestamp",
-    example: "2024-01-15T10:30:00Z",
+    description: 'Last update timestamp',
+    example: '2024-01-15T10:30:00Z',
   })
-  timestamp: Date
+  timestamp: Date;
 
   @ApiPropertyOptional({
-    description: "Additional metadata",
+    description: 'Additional metadata',
   })
-  metadata?: Record<string, any>
+  metadata?: Record<string, any>;
 }
 
 export class PaymentInitializationDto {
   @ApiProperty({
-    description: "Internal transaction ID",
-    example: "TXN_1234567890_abc",
+    description: 'Internal transaction ID',
+    example: 'TXN_1234567890_abc',
   })
-  transactionId: string
+  transactionId: string;
 
   @ApiProperty({
-    description: "Payment provider",
-    enum: ["transbank", "mercado_pago"],
+    description: 'Payment provider',
+    enum: ['transbank', 'mercado_pago'],
   })
-  provider: PaymentProvider
+  provider: PaymentProvider;
 
   @ApiProperty({
-    description: "Payment provider redirect URL",
-    example: "https://payment-provider.com/checkout",
+    description: 'Payment provider redirect URL',
+    example: 'https://payment-provider.com/checkout',
   })
-  redirectUrl?: string
+  redirectUrl?: string;
 
   @ApiProperty({
-    description: "Payment token from provider",
-    example: "token_123",
+    description: 'Payment token from provider',
+    example: 'token_123',
   })
-  token?: string
+  token?: string;
 
   @ApiProperty({
-    description: "Success message",
-    example: "Payment initialized successfully",
+    description: 'Success message',
+    example: 'Payment initialized successfully',
   })
-  message?: string
+  message?: string;
 }
 
 export class PaymentCallbackDto {
   @ApiProperty({
-    description: "Payment provider",
-    enum: ["transbank", "mercado_pago"],
+    description: 'Payment provider',
+    enum: ['transbank', 'mercado_pago'],
   })
-  provider: PaymentProvider
+  provider: PaymentProvider;
 
   @ApiProperty({
-    description: "Transaction ID",
-    example: "TXN_1234567890_abc",
+    description: 'Transaction ID',
+    example: 'TXN_1234567890_abc',
   })
-  transactionId: string
+  transactionId: string;
 
   @ApiProperty({
-    description: "Payment status after provider processing",
-    enum: ["pending", "authorized", "captured", "declined", "cancelled", "refunded", "error"],
+    description: 'Payment status after provider processing',
+    enum: [
+      'pending',
+      'authorized',
+      'captured',
+      'declined',
+      'cancelled',
+      'refunded',
+      'error',
+    ],
   })
-  status: PaymentStatus
+  status: PaymentStatus;
 
   @ApiPropertyOptional({
-    description: "Authorization code",
+    description: 'Authorization code',
   })
-  authCode?: string
+  authCode?: string;
 
   @ApiPropertyOptional({
-    description: "Final payment amount",
+    description: 'Final payment amount',
   })
-  amount?: number
+  amount?: number;
 
   @ApiPropertyOptional({
-    description: "Callback message",
+    description: 'Callback message',
   })
-  message?: string
+  message?: string;
 
   @ApiPropertyOptional({
-    description: "Provider-specific metadata",
+    description: 'Provider-specific metadata',
   })
-  metadata?: Record<string, any>
+  metadata?: Record<string, any>;
 }
 
 export class PaymentErrorResponseDto {
   @ApiProperty({
-    description: "HTTP status code",
+    description: 'HTTP status code',
     example: 400,
   })
-  statusCode: number
+  statusCode: number;
 
   @ApiProperty({
-    description: "Error message",
-    example: "Invalid payment data",
+    description: 'Error message',
+    example: 'Invalid payment data',
   })
-  message: string
+  message: string;
 
   @ApiPropertyOptional({
-    description: "Detailed error information",
+    description: 'Detailed error information',
   })
-  details?: Record<string, any>
+  details?: Record<string, any>;
 
   @ApiProperty({
-    description: "Timestamp when error occurred",
+    description: 'Timestamp when error occurred',
   })
-  timestamp: string
+  timestamp: string;
 }

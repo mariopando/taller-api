@@ -1,43 +1,43 @@
-import { IsString, IsEnum, IsOptional, IsNumber } from "class-validator"
-import { PaymentProvider } from "../enums/payment-provider.enum"
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger"
+import { IsString, IsEnum, IsOptional, IsNumber } from 'class-validator';
+import { PaymentProvider } from '../enums/payment-provider.enum';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ConfirmPaymentRequestDto {
   @ApiProperty({
-    description: "Transaction ID",
-    example: "TXN_1234567890_abc",
+    description: 'Transaction ID',
+    example: 'TXN_1234567890_abc',
   })
   @IsString()
-  transactionId: string
+  transactionId: string;
 
   @ApiProperty({
-    description: "Payment token from provider",
-    example: "token_123",
+    description: 'Payment token from provider',
+    example: 'token_123',
   })
   @IsString()
-  token: string
+  token: string;
 
   @ApiProperty({
-    description: "Payment provider",
+    description: 'Payment provider',
     enum: PaymentProvider,
   })
   @IsEnum(PaymentProvider)
-  provider: PaymentProvider
+  provider: PaymentProvider;
 }
 
 export class RefundPaymentRequestDto {
   @ApiProperty({
-    description: "Payment provider",
+    description: 'Payment provider',
     enum: PaymentProvider,
   })
   @IsEnum(PaymentProvider)
-  provider: PaymentProvider
+  provider: PaymentProvider;
 
   @ApiPropertyOptional({
-    description: "Refund amount (optional, full amount if not provided)",
+    description: 'Refund amount (optional, full amount if not provided)',
     example: 50.0,
   })
   @IsOptional()
   @IsNumber()
-  amount?: number
+  amount?: number;
 }
