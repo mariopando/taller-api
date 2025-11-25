@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Controller, Post, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import {
   ApiTags,
@@ -8,19 +9,19 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import type { PaymentsService } from '../services/payments.service';
-import type { CreatePaymentDto } from '@/common/dto/create-payment.dto';
+import type { CreatePaymentDto } from '../../common/dto/create-payment.dto';
 import type {
   ConfirmPaymentRequestDto,
   RefundPaymentRequestDto,
-} from '@/common/dto/payment-request.dto';
+} from '../../common/dto/payment-request.dto';
 import type {
   PaymentResponseDto,
   PaymentCallbackDto,
-} from '@/common/dto/payment-response.dto';
+} from '../../common/dto/payment-response.dto';
 import {
   PaymentStatus,
   PaymentProvider,
-} from '@/common/enums/payment-provider.enum';
+} from '../../common/enums/payment-provider.enum';
 
 @ApiTags('Payments')
 @ApiBearerAuth()
