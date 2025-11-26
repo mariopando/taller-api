@@ -1,4 +1,5 @@
 import { registerAs } from '@nestjs/config';
+import { Payment } from '../payments/entities/payment.entity';
 
 export const environments = registerAs('environments', () => ({
   app: {
@@ -29,6 +30,7 @@ export const environments = registerAs('environments', () => ({
     password: process.env.DATABASE_PASSWORD,
     name: process.env.DATABASE_NAME || 'payment_gateway',
     synchronize: process.env.DATABASE_SYNCHRONIZE === 'true',
+    entities: [Payment],
     logging: process.env.DATABASE_LOGGING === 'true',
   },
   transbank: {
