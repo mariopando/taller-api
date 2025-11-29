@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { Controller, Post, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Get, HttpCode, HttpStatus, Inject } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -8,7 +8,7 @@ import {
   ApiQuery,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import type { PaymentsService } from '../services/payments.service';
+import { PaymentsService } from '../services/payments.service';
 import type { CreatePaymentDto } from '../../common/dto/create-payment.dto';
 import type {
   ConfirmPaymentRequestDto,
@@ -27,7 +27,10 @@ import {
 @ApiBearerAuth()
 @Controller('payments')
 export class PaymentsController {
-  constructor(private paymentsService: PaymentsService) {}
+  constructor(
+    @Inject(PaymentsService)
+    private paymentsService: PaymentsService,
+  ) {}
 
   @Post('initialize')
   @HttpCode(HttpStatus.OK)
