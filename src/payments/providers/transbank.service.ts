@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { PaymentStatus } from 'src/common/enums/payment-provider.enum';
 
 @Injectable()

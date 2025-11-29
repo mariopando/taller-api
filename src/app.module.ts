@@ -1,25 +1,30 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PaymentsController } from './payments/controllers/payments.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PaymentsModule } from './payments/payments.module';
-import { PaymentsService } from './payments/services/payments.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { environments } from './config/environments';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env`,
+      load: [environments],
     }),
-    // TypeOrmModule.forRoot(ConfigService.get('environments').db),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        return configService.getOrThrow<TypeOrmModuleOptions>(
+          'environments.db',
+        );
+      },
+    }),
     PaymentsModule,
-    TypeOrmModule,
-    DataSource,
   ],
-  controllers: [AppController, PaymentsController],
-  providers: [AppService, ConfigService, PaymentsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

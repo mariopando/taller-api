@@ -9,6 +9,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  Inject,
 } from '@nestjs/common';
 import type { CreatePaymentDto } from 'src/common/dto/create-payment.dto';
 import type {
@@ -20,17 +21,20 @@ import {
   PaymentStatus,
   PaymentProvider,
 } from 'src/common/enums/payment-provider.enum';
-import type { PaymentRepository } from '../repositories/payment.repository';
-import type { TransbankService } from '../providers/transbank.service';
-import type { MercadoPagoService } from '../providers/mercado-pago.service';
+import { PaymentRepository } from '../repositories/payment.repository';
+import { TransbankService } from '../providers/transbank.service';
+import { MercadoPagoService } from '../providers/mercado-pago.service';
 import { Payment } from '../entities/payment.entity';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class PaymentsService {
   constructor(
+    @Inject(PaymentRepository)
     private paymentRepository: PaymentRepository,
+    @Inject(TransbankService)
     private transbankService: TransbankService,
+    @Inject(MercadoPagoService)
     private mercadoPagoService: MercadoPagoService,
   ) {}
 
