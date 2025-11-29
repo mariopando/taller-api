@@ -24,6 +24,7 @@ export const environments = registerAs('environments', () => ({
     enabled: process.env.SWAGGER_ENABLED === 'true',
   },
   db: {
+    type: (process.env.DATABASE_TYPE || 'postgres') as any,
     host: process.env.DATABASE_HOST || 'localhost',
     port: Number(process.env.DATABASE_PORT) || 5432,
     username: process.env.DATABASE_USER || 'postgres',
